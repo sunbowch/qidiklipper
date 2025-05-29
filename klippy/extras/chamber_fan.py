@@ -20,6 +20,9 @@ class ChamberFan:
         self.fan_on = True
         self.last_on = self.idle_timeout
         self.last_speed = 0.
+        self.gcode.register_command("TOGGLE_CHAMBER_FAN", self.cmd_toggle_chamber_fan)
+        self.gcode.register_command("ENABLE_CHAMBER_FAN", self.cmd_enable_chamber_fan)
+        self.gcode.register_command("DISABLE_CHAMBER_FAN", self.cmd_disable_chamber_fan)
     def handle_connect(self):
         # Heater lookup
         pheaters = self.printer.lookup_object('heaters')
