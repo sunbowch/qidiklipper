@@ -31,6 +31,10 @@ class ChamberFan:
         gcode.register_command("TOGGLE_CHAMBER_FAN", self.cmd_toggle_chamber_fan)
     def cmd_toggle_chamber_fan(self, gcmd):
         self.fan_on = not self.fan_on
+    def cmd_enable_chamber_fan(self, gcmd):
+        self.fan_on = True
+    def cmd_disable_chamber_fan(self, gcmd):
+        self.fan_on = False
     def get_status(self, eventtime):
         return self.fan.get_status(eventtime)
     def callback(self, eventtime):
