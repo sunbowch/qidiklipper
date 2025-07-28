@@ -1934,16 +1934,16 @@ control_pin:
 #   See the "probe" section for information on these parameters.
 ```
 
-### [smart_effector]
+### [probe]
 
 The "Smart Effector" from Duet3d implements a Z probe using a force
 sensor. One may define this section instead of `[probe]` to enable the
 Smart Effector specific features. This also enables
-[runtime commands](G-Codes.md#smart_effector) to adjust the parameters
+[runtime commands](G-Codes.md#probe) to adjust the parameters
 of the Smart Effector at run time.
 
 ```
-[smart_effector]
+[probe]
 pin:
 #   Pin connected to the Smart Effector Z Probe output pin (pin 5). Note that
 #   pullup resistor on the board is generally not required. However, if the

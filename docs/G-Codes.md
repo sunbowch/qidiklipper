@@ -1184,17 +1184,17 @@ profile matching the supplied name from persistent memory. Note that
 after SAVE or REMOVE operations have been run the SAVE_CONFIG gcode
 must be run to make the changes to persistent memory permanent.
 
-### [smart_effector]
+### [probe]
 
 Several commands are available when a
-[smart_effector config section](Config_Reference.md#smart_effector) is enabled.
+[probe config section](Config_Reference.md#probe) is enabled.
 Be sure to check the official documentation for the Smart Effector on the
-[Duet3D Wiki](https://duet3d.dozuki.com/Wiki/Smart_effector_and_carriage_adapters_for_delta_printer)
+[Duet3D Wiki](https://duet3d.dozuki.com/Wiki/probe_and_carriage_adapters_for_delta_printer)
 before changing the Smart Effector parameters. Also check the
 [probe calibration guide](Probe_Calibrate.md).
 
-#### SET_SMART_EFFECTOR
-`SET_SMART_EFFECTOR [SENSITIVITY=<sensitivity>] [ACCEL=<accel>]
+#### SET_probe
+`SET_probe [SENSITIVITY=<sensitivity>] [ACCEL=<accel>]
 [RECOVERY_TIME=<time>]`: Set the Smart Effector parameters. When
 `SENSITIVITY` is specified, the respective value is written to the
 SmartEffector EEPROM (requires `control_pin` to be provided).
@@ -1206,11 +1206,11 @@ force to trigger). Since the sensitivity is written to EEPROM, it is
 preserved after the shutdown, and so it does not need to be configured
 on every printer startup. `ACCEL` and `RECOVERY_TIME` allow to
 override the corresponding parameters at run-time, see the
-[config section](Config_Reference.md#smart_effector) of Smart Effector
+[config section](Config_Reference.md#probe) of Smart Effector
 for more info on those parameters.
 
-#### RESET_SMART_EFFECTOR
-`RESET_SMART_EFFECTOR`: Resets Smart Effector sensitivity to its factory
+#### RESET_probe
+`RESET_probe`: Resets Smart Effector sensitivity to its factory
 settings. Requires `control_pin` to be provided in the config section.
 
 ### [stepper_enable]

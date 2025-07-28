@@ -70,14 +70,14 @@ class SmartEffectorEndstopWrapper:
             ppins = self.printer.lookup_object('pins')
             pin_params = ppins.lookup_pin(control_pin, can_invert=True)
             self.control_pin = ControlPinHelper(pin_params)
-            self.gcode.register_command("RESET_SMART_EFFECTOR",
-                                        self.cmd_RESET_SMART_EFFECTOR,
-                                        desc=self.cmd_RESET_SMART_EFFECTOR_help)
+            self.gcode.register_command("RESET_probe",
+                                        self.cmd_RESET_probe,
+                                        desc=self.cmd_RESET_probe_help)
         else:
             self.control_pin = None
-        self.gcode.register_command("SET_SMART_EFFECTOR",
-                                    self.cmd_SET_SMART_EFFECTOR,
-                                    desc=self.cmd_SET_SMART_EFFECTOR_help)
+        self.gcode.register_command("SET_probe",
+                                    self.cmd_SET_probe,
+                                    desc=self.cmd_SET_probe_help)
     def probe_prepare(self, hmove):
         toolhead = self.printer.lookup_object('toolhead')
         self.probe_wrapper.probe_prepare(hmove)
@@ -115,8 +115,8 @@ class SmartEffectorEndstopWrapper:
         # with the SmartEffector programming
         toolhead.dwell(end_time - start_time)
         toolhead.wait_moves()
-    cmd_SET_SMART_EFFECTOR_help = 'Set SmartEffector parameters'
-    def cmd_SET_SMART_EFFECTOR(self, gcmd):
+    cmd_SET_probe_help = 'Set SmartEffector parameters'
+    def cmd_SET_probe(self, gcmd):
         sensitivity = gcmd.get_int('SENSITIVITY', None, minval=0, maxval=255)
         respond_info = []
         if sensitivity is not None:
@@ -125,7 +125,7 @@ class SmartEffectorEndstopWrapper:
                 self._send_command(buf)
                 respond_info.append("sensitivity: %d" % (sensitivity,))
             else:
-                raise gcmd.error("control_pin must be set in [smart_effector] "
+                raise gcmd.error("control_pin must be set in [probe] "
                                  "for sensitivity programming")
         self.probe_accel = gcmd.get_float('ACCEL', self.probe_accel, minval=0.)
         self.recovery_time = gcmd.get_float('RECOVERY_TIME', self.recovery_time,
@@ -141,14 +141,14 @@ class SmartEffectorEndstopWrapper:
         else:
             respond_info.append("probe recovery time disabled")
         gcmd.respond_info("SmartEffector:\n" + "\n".join(respond_info))
-    cmd_RESET_SMART_EFFECTOR_help = 'Reset SmartEffector settings (sensitivity)'
-    def cmd_RESET_SMART_EFFECTOR(self, gcmd):
+    cmd_RESET_probe_help = 'Reset SmartEffector settings (sensitivity)'
+    def cmd_RESET_probe(self, gcmd):
         buf = [131, 131]
         self._send_command(buf)
         gcmd.respond_info('SmartEffector sensitivity was reset')
 
 def load_config(config):
-    smart_effector = SmartEffectorEndstopWrapper(config)
+    probe = SmartEffectorEndstopWrapper(config)
     config.get_printer().add_object('probe',
-                                    probe.PrinterProbe(config, smart_effector))
-    return smart_effector
+                                    probe.PrinterProbe(config, probe))
+    return probe

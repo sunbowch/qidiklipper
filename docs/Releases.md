@@ -42,7 +42,7 @@ Available on 20221128. Major changes in this release:
   stm32. Linux mcu signal based event dispatch. New rp2040 support for
   "make flash", i2c, and rp2040-e5 USB errata.
 * New modules added: angle, dac084S085, exclude_object, led, mpu9250,
-  pca9632, smart_effector, z_thermal_adjust. New deltesian kinematics
+  pca9632, probe, z_thermal_adjust. New deltesian kinematics
   added. New dump_mcu tool added.
 * Several bug fixes and code cleanups.
 
