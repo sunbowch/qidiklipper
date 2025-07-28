@@ -20,7 +20,6 @@ class ChamberFan:
         self.fan_on = True
         self.last_on = self.idle_timeout
         self.last_speed = 0.
-        
     def handle_connect(self):
         # Heater lookup
         pheaters = self.printer.lookup_object('heaters')
